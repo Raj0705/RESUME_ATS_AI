@@ -1,0 +1,26 @@
+{
+  "name": "backend_ai",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Raj0705/RESUME_ATS_AI.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Raj0705/RESUME_ATS_AI/issues"
+  },
+  "homepage": "https://github.com/Raj0705/RESUME_ATS_AI#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "mongodb": "^6.20.0",
+    "mongoose": "^8.19.0",
+    "nodemon": "^3.1.10"
+  }
+}
