@@ -11,8 +11,10 @@ app.use(express.json());// jo bhi date aayega json formate me uske convert ya re
 
 
 const UserRoutes = require('./Routes/user');
+const ResumeRoutes = require('./Routes/resume');
 
-app.use('/api/user',UserRoutes)
+app.use('/api/user',UserRoutes);
+app.use('/api/resume',ResumeRoutes)
 
 app.listen(PORT,()=>{
     console.log("backend is running on port",PORT)
