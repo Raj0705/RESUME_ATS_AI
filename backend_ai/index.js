@@ -1,4 +1,6 @@
 const express = require('express');
+const cors = require('cors');
+
 
 
 
@@ -8,6 +10,10 @@ const PORT = 4000;
 require('./conn');
 
 app.use(express.json());// jo bhi date aayega json formate me uske convert ya read kr skega
+app.use(cors({
+    credentials:true,
+    origin:"http://localhost:5173"
+}))
 
 
 const UserRoutes = require('./Routes/user');

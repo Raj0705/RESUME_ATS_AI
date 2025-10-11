@@ -1,11 +1,53 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styles from './Dashboard.module.css'
 import CreditScoreIcon from '@mui/icons-material/CreditScore';
 import skeleton from '@mui/material/Skeleton';
 import Skeleton from '@mui/material/Skeleton';
 import withAuthHOC from '../../utils/HOC/withAuthHOC';
+import axios from '../../utils/axios'
+import { useState } from 'react';
+import { AuthContext } from '../../utils/AuthContext';
+
+    
+
 
 const Dashboard = () => {
+    const [uploadFileText, setUploadFileText] = useState("Upload your resume");
+    const[loading , setLoading] = useState(false);
+    const[resumeFile, setResumeFile] = useState(null);
+    const[jobDesc, setJobDesc] = useState("");
+
+
+    const [result,setResult] = useState(null);
+
+    const {userInfo} = useContext(AuthContext)
+
+    const handleOnChangeFile = (e) =>{
+        const file = e.target.files[0];
+  setResumeFile(file);
+  setUploadFileText(file ? file.name : "Upload your resume");
+    }
+
+    const handleUpload = async()=>{
+        setResult(null)
+        if(!jobDesc || !resumeFile){
+            alert("Please fill Job Description & Upload Resume");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("resume",resumeFile);
+        formData.append("job_desc",jobDesc);
+        formData.append("user",userInfo._id);
+
+        try{
+            const result =await axios.post('/api/resume/addResume',formData);
+            console.log(result)
+        }catch(err){
+            console.log(err)
+        }
+
+    }
     return (
         <div className={styles.Dashboard}>
             <div className={styles.DashboardLeft}>
@@ -24,17 +66,17 @@ const Dashboard = () => {
 
                 <div className={styles.DashboardUploadResume}>
                     <div className={styles.DashboardResumeBlock}>
-                        Upload Your Resume
+                        {uploadFileText}
                     </div>
 
                     <div className={styles.DashboardInputField}>
                         <label htmlFor='inputField' className={styles.analyzeAIBtn}>Upload Resume</label>
-                        <input type='file' accept=".pdf" id='inputField' />
+                        <input type='file' accept=".pdf" id='inputField' onChange={handleOnChangeFile}/>
                     </div>
                 </div>
                 <div className={styles.jobDesc}>
-                    <textarea className={styles.textArea} placeholder='Paste Your Job Description' rows={10} cols={50} />
-                    <div className={styles.AnalyzeBtn}>Analyze</div>
+                    <textarea value = {jobDesc} onChange={(e)=>{setJobDesc(e.target.value)}} className={styles.textArea} placeholder='Paste Your Job Description' rows={10} cols={50} />
+                    <div className={styles.AnalyzeBtn} onClick={handleUpload}>Analyze</div>
                 </div>
             </div>
             <div className={styles.DashboardRight}>

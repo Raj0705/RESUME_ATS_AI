@@ -19,6 +19,7 @@
   "homepage": "https://github.com/Raj0705/RESUME_ATS_AI#readme",
   "dependencies": {
     "cohere-ai": "^7.19.0",
+    "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "mongodb": "^6.20.0",
